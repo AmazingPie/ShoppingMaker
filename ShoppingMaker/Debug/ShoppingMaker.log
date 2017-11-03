@@ -1,0 +1,7 @@
+﻿  ShoppingMaker.cpp
+  ShoppingList.cpp
+  Generating Code...
+d:\documents\visual studio 2015\projects\shoppingmaker\shoppingmaker\shoppinglist.cpp(34): warning C4172: returning address of local variable or temporary: list
+d:\documents\visual studio 2015\projects\shoppingmaker\shoppingmaker\shoppinglist.cpp(79): warning C4172: returning address of local variable or temporary: ingredients
+  ShoppingMaker.vcxproj -> d:\documents\visual studio 2015\Projects\ShoppingMaker\Debug\ShoppingMaker.exe
+  ShoppingMaker.vcxproj -> d:\documents\visual studio 2015\Projects\ShoppingMaker\Debug\ShoppingMaker.pdb (Partial PDB)
