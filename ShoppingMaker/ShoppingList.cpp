@@ -1,5 +1,12 @@
 #include "ShoppingList.h"
 
+QueryReturn* ShoppingList::Callback()
+{
+
+	QueryReturn result {};
+	return result;
+}
+
 ShoppingList::ShoppingList()
 {
 	if (sqlite3_open("food.db", &db))
@@ -64,12 +71,24 @@ void ShoppingList::EditIngredients(std::string ingredients_name)
 
 std::string* ShoppingList::GetMeals()
 {
+	io_stringstream << "SELECT ";
+	std:;string query = io_stringstream.str();
+	QueryReturn result = sqlite3_exec(db, query.c_str(), &Callback, ))
+	if (/*exec == !Fail*/){
+		std::string* meals = result.data; //edit line to correct sysntax with QueryReturn
+		meals.push();
+		return meals;
+	}
+	else
+	{
+		std::cout << "Could not get meals from database";
+	}
 	std::string ingredients[1];
 	ingredients[0] = "asdf";
 	return ingredients;
 }
 
-std::string * ShoppingList::GetIngredients(std::string ingredients_name)
+std::string* ShoppingList::GetIngredients(std::string ingredients_name)
 {
 	std::string ingredients[1];
 	ingredients[0] = "asdf";
