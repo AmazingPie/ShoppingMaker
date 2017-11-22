@@ -1,10 +1,18 @@
 #include "ShoppingList.h"
 
-QueryReturn* ShoppingList::Callback()
+int ShoppingList::Callback(void *query_struct, int column_amount, char **fields, char **cols)
 {
-
-	QueryReturn result {};
-	return result;
+	//populate the return_table with the data needed
+	QueryReturn *return_struct = static_cast<QueryReturn*>(query_struct);
+	return_struct->m_column_amount = column_amount;
+	return_struct->m_fields_size = 0;		//might want to replace this with an actual constructor
+	for (int i = 1; i < sizeof(fields); ++i, ++return_struct->m_fields_size)
+	{
+		return_struct->m_fields[i] = fields[i];
+		return_struct->m_columns[i] = cols[i];
+	}
+	
+	return 0;
 }
 
 ShoppingList::ShoppingList()
@@ -71,12 +79,14 @@ void ShoppingList::EditIngredients(std::string ingredients_name)
 
 std::string* ShoppingList::GetMeals()
 {
-	io_stringstream << "SELECT ";
-	std:;string query = io_stringstream.str();
-	QueryReturn result = sqlite3_exec(db, query.c_str(), &Callback, ))
-	if (/*exec == !Fail*/){
-		std::string* meals = result.data; //edit line to correct sysntax with QueryReturn
-		meals.push();
+	io_stringstream << "SELECT "; //FINISH STATEMENT
+	std::string query = io_stringstream.str();
+	QueryReturn *results;
+	bool fail = sqlite3_exec(db, query.c_str(), Callback, &results, NULL);
+	if (!fail)
+	{
+		std::string* meals = results->m_fields;
+		meals[0] = (results->m_fields_size);
 		return meals;
 	}
 	else

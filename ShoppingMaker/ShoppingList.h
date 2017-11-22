@@ -1,11 +1,11 @@
 #ifndef SHOPPINGLIST_H
 #define SHOPPINGLIST_H
 
+#include "QueryReturn.h"
 #include <string>
 #include <sstream>
-#include <sqlite3.h>
 #include <iostream>
-#include "QueryReturn.h"
+#include <sqlite3.h>
 
 class ShoppingList
 {
@@ -14,7 +14,7 @@ private:
 	std::stringstream io_stringstream;
 	int index_count;
 
-	QueryReturn* Callback();
+	static int Callback(void *data, int argc, char **argv, char **azColName);
 
 public:
 	ShoppingList();
