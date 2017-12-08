@@ -26,6 +26,11 @@ std::string FindMeal(ShoppingList *shopping_list)
 {
 	std::cout << "These are the current meals we have in the database: \n";
 	std::string* meal_list = shopping_list->GetMeals();
+	if (meal_list == NULL) 
+	{
+		std::cout << "Error: meals cannot be retrieved (perhaps there are no meals in database?)" << std::endl;
+		return NULL;
+	}
 	for (int i = 1; i < std::stoi(meal_list[0]); ++i)		//the first index from GetMeal is always the array size
 	{
 		std::cout << meal_list[i] << "\n";
@@ -96,6 +101,10 @@ int main()
 			{
 			case (1):
 				old_name = FindMeal(&shopping_list);
+				if (old_name == NULL)
+				{
+					break;
+				}
 				std::cout << "What is the new name for the meal" << std::endl;
 				new_name = "";
 				std::cin >> new_name;
@@ -103,6 +112,10 @@ int main()
 				break;
 			case (2):
 				meal_name = FindMeal(&shopping_list);
+				if (meal_name == NULL)
+				{
+					break;
+				}
 				std::cout << "Use y/n to specify which ingredients to change";
 				ingredient_list = shopping_list.GetIngredients(meal_name);
 				
@@ -125,6 +138,11 @@ int main()
 				break;
 			case (3):
 				meal_name = FindMeal(&shopping_list);
+				if (meal_name == NULL)
+				{
+					break;
+				}
+
 				shopping_list.DeleteMeal(meal_name);
 				break;
 			case (4):
@@ -137,6 +155,11 @@ int main()
 
 /*
 When get GetMeal is called it must return the size of the array as the first index
-Put m_ in front of member variables
 
+JUST ATTEMPTED SOLUTION, CHECK BUILD
+/There is a problem with the callback functon whereby it creates and populates a new different table to the pointer that is passed in
+/which means that the table that is passed in is never filled
+
+May be an idea to split ShoppingList up into ShoppingList (interface between main and database functions) and another class that handles basic
+database functions
 */

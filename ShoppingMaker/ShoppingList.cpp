@@ -3,13 +3,13 @@
 int ShoppingList::Callback(void *query_struct, int column_amount, char **fields, char **cols)
 {
 	//populate the return_table with the data needed
-	QueryReturn *return_struct = static_cast<QueryReturn*>(query_struct);
-	return_struct->m_column_amount = column_amount;
-	return_struct->m_fields_size = 0;		//might want to replace this with an actual constructor
-	for (int i = 1; i < sizeof(fields); ++i, ++return_struct->m_fields_size)
+	query_struct = static_cast<QueryReturn*>(query_struct);		//THIS MAY OR MAY NOT WORK
+	query_struct->m_column_amount = column_amount;
+	query_struct->m_fields_size = 0;		//might want to replace this with an actual constructor
+	for (int i = 1; i < sizeof(fields); ++i, ++query_struct->m_fields_size)
 	{
-		return_struct->m_fields[i] = fields[i];
-		return_struct->m_columns[i] = cols[i];
+		query_struct->m_fields[i] = fields[i];
+		query_struct->m_columns[i] = cols[i];
 	}
 	
 	return 0;
@@ -79,7 +79,8 @@ void ShoppingList::EditIngredients(std::string ingredients_name)
 
 std::string* ShoppingList::GetMeals()
 {
-	io_stringstream << "SELECT "; //FINISH STATEMENT
+	io_stringstream << "SELECT meal_id, meal_name
+			FROM Meals;";		//CHECK STATEMENT
 	std::string query = io_stringstream.str();
 	QueryReturn *results;
 	bool fail = sqlite3_exec(db, query.c_str(), Callback, &results, NULL);
@@ -93,16 +94,12 @@ std::string* ShoppingList::GetMeals()
 	{
 		std::cout << "Could not get meals from database";
 	}
-	std::string ingredients[1];
-	ingredients[0] = "asdf";
-	return ingredients;
+	return NULL;
 }
 
 std::string* ShoppingList::GetIngredients(std::string ingredients_name)
 {
-	std::string ingredients[1];
-	ingredients[0] = "asdf";
-	return ingredients;
+	return NULL;
 }
 
 bool ShoppingList::IsMeal(std::string meal_name)
