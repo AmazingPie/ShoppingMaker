@@ -11,13 +11,19 @@ void AddMeal(ShoppingList *shopping_list)
 	std::string index_name = "";
 	std::cin >> index_name;
 	//shopping_list.AddMeal(index_name);
-	std::cout << "List the ingredients one by one (type exit to finish)";
+	std::cout << "List the ingredients one by one (type exit to finish) \n *quantities are entered seperately\n";
 	std::string ingredient = "";
 	std::cin >> ingredient;
+	std::cout "Now enter the quantity/amount of the ingredient\n"
+	std::string quantity = "";
+	std::cin >> quantity;
 	while (ingredient != "exit")
 	{
-		//shopping_list.AddIngredient(ingredient);
+		//shopping_list.AddIngredient(index_name, ingredient, quantity);
+		std::cout << "Ingredient: ";
 		std::cin >> ingredient;
+		std::cout << "Quantity: "
+		std::cin >> quantity;
 	}
 }
 
@@ -162,4 +168,6 @@ JUST ATTEMPTED SOLUTION, CHECK BUILD
 
 May be an idea to split ShoppingList up into ShoppingList (interface between main and database functions) and another class that handles basic
 database functions
+
+Would be much more efficent in AddMeal to take in all ingredients to a buffer array first and then flush to the database all at once
 */

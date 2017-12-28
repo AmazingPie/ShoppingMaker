@@ -6,6 +6,8 @@
 #include <sstream>
 #include <iostream>
 #include <sqlite3.h>
+#include <random>
+#include <functional>
 
 class ShoppingList
 {
@@ -14,7 +16,13 @@ private:
 	std::stringstream io_stringstream;
 	int index_count;
 
+	/*Callback function for SELECT Statements.
+	  Fills QueryReturn struct with the data returned from the SELECT statement.*/
 	static int Callback(void *data, int argc, char **argv, char **azColName);
+
+	/*Generates a random integer value between the lower and upper bounds (inclusive)*/
+	int RandomInt(int lower_bound, int upper_bound);
+
 
 public:
 	ShoppingList();
@@ -23,8 +31,8 @@ public:
 	std::string* GenerateList();
 	/**/
 	void AddMeal(std::string entry);
-	/**/
-	void AddIngredient(std::string meal_name, std::string ingredient);
+	/*Adds an ingredient to the meal of meal_name as well as to the ingredient table */
+	void AddIngredient(std::string meal_name, std::string ingredient, std::string quantity);
 	/**/
 	void DeleteMeal(std::string meal_name);
 	/**/
